@@ -21,7 +21,7 @@ main {
 
 .casa {
     border: 1px solid black;
-    background-color: red;
+    background-color: gray;
 }
 
 /* Organização das casas nas bordas */
@@ -205,14 +205,30 @@ main {
     grid-row: 2;
 }
 
-#jogador {
+.jogador {
     width: 30px;
     height: 30px;
-    background-color: rgb(28, 81, 179);
     border-radius: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
 }
+
+#jogador1 {
+    background-color: red;
+}
+
+#jogador2 {
+    background-color: BLUE;
+}
+
+#jogador3 {
+    background-color: green;
+}
+
+#jogador4 {
+    background-color: yellow;
+}
+
 
 .pergunta {
     background-color: yellow;

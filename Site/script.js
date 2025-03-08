@@ -1,5 +1,11 @@
-posicaoJogador = 0;
 const totalCasas = 36;
+const jogadores = [
+    { nome: "Jogador 1", cor: "red", posicao: 0 },
+    { nome: "Jogador 2", cor: "blue", posicao: 0 },
+    { nome: "Jogador 3", cor: "green", posicao: 0 },
+    { nome: "Jogador 4", cor: "yellow", posicao: 0 }
+];
+let jogadorAtual = 0;
 // Perguntas
 const perguntas = {
     1: {
@@ -25,35 +31,41 @@ const perguntas = {
 };
 
 // Atualiza a posição do jogador
-function atualizarJogador() {
-    const casa = document.getElementById(`casa${posicaoJogador}`);
-    const jogador = document.getElementById("jogador");
-    jogador.style.top = casa.offsetTop +25+"px";
-    jogador.style.left = casa.offsetLeft +25+ "px";
+function atualizarJogadores() {
+    jogadores.forEach((jogador, index) => {
+        const peca = document.getElementById(`jogador${index + 1}`);
+        const casa = document.getElementById(`casa${jogador.posicao+1}`);
+        peca.style.top = (casa.offsetTop +25)+ "px";
+        peca.style.left = (casa.offsetLeft +25)+ "px";
+    });
 }
 // Rola o dado e move o jogador
 document.getElementById("rolarDado").addEventListener("click", function() {
     let dado = Math.floor(Math.random() * 6) + 1;  
-    document.getElementById("resultadoDado").innerText = "Você rolou: " + dado;
-
-    posicaoJogador += dado;
-    if (posicaoJogador >= totalCasas) {
-        alert("Você venceu!");
-        posicaoJogador = totalCasas;
+    document.getElementById("resultadoDado").innerText = `${jogadores[jogadorAtual].nome} rolou: ${dado}`;
+//mov o Jogador Atual
+    jogadores[jogadorAtual].posicao += dado;
+    if (jogadores[jogadorAtual].posicao >= totalCasas) {
+        jogadores[jogadorAtual].posicao = totalCasas;
+        alert(`${jogadores[jogadorAtual].nome} venceu!`);
+        return;
     }
 
-    atualizarJogador();
+    atualizarJogadores();
+
 
     // Verifica se parou em uma casa de pergunta
-    if (perguntas[posicaoJogador]) {
-        exibirPergunta(posicaoJogador);
+    if (perguntas[jogadores[jogadorAtual].posicao+1]) {
+        exibirPergunta(jogadores[jogadorAtual].posicao+1);
+    } else {
+        // Alterna para o próximo jogador
+        jogadorAtual = (jogadorAtual + 1) % jogadores.length;
     }
 });
 
 function exibirPergunta(casa) {
     const pergunta = perguntas[casa];
     document.getElementById("perguntaTexto").innerText = pergunta.texto;
-    
     const opcoesResposta = document.getElementById("opcoesResposta");
     opcoesResposta.innerHTML = ""; // Limpa as opções anteriores
 
@@ -64,19 +76,26 @@ function exibirPergunta(casa) {
         opcoesResposta.appendChild(botao);
     });
 
-    document.getElementById("modalPergunta").style.display = "block";
+    document.getElementById("modalPergunta").style.display = "block";//Torna o Modal Visivel
+    document.getElementById("rolarDado").disabled = true; //Disabilita o Botão de Rolar Dados
+    
 }
 
 function verificarResposta(escolhida, correta) {
     if (escolhida === correta) {
         alert("Resposta correta! Você continua.");
+        document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
     } else {
         alert("Resposta errada! Você volta uma casa.");
-        posicaoJogador = Math.max(0, posicaoJogador - 1);
-        atualizarJogador();
+        jogadores[jogadorAtual].posicao = Math.max(0, jogadores[jogadorAtual].posicao - 1);
+        atualizarJogadores();
+        document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
     }
 
     document.getElementById("modalPergunta").style.display = "none";
+
+    // Alterna para o próximo jogador
+    jogadorAtual = (jogadorAtual + 1) % jogadores.length;
 }
 // Inicializa o jogador na posição inicial
-atualizarJogador();
+atualizarJogadores();
