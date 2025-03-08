@@ -214,15 +214,19 @@ main {
 }
 
 #jogador1 {
+    margin-top: 4px;
     background-color: red;
+    margin-top: 9px;
 }
 
 #jogador2 {
     background-color: BLUE;
+    margin-top: 6px;
 }
 
 #jogador3 {
     background-color: green;
+    margin-top: 3px;
 }
 
 #jogador4 {
@@ -244,4 +248,63 @@ main {
     background-color: white;
     padding: 20px;
     border: 1px solid black;
+}
+
+#opcoesResposta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#opcoesResposta>button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#opcoesResposta button:hover {
+    background-color: #2980b9;
+}
+
+/* Tela inicial*/
+#telaInicial {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#telaInicial h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+#telaInicial button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background 0.3s ease;
+}
+
+#telaInicial button:hover {
+    background-color: #218838;
 }

@@ -99,3 +99,8 @@ function verificarResposta(escolhida, correta) {
 }
 // Inicializa o jogador na posição inicial
 atualizarJogadores();
+
+//tela inicial 
+document.getElementById("iniciarJogo").addEventListener("click", function() {
+    document.getElementById("telaInicial").style.display = "none"; // Esconde a tela de espera
+});
