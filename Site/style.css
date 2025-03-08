@@ -238,6 +238,25 @@ main {
     background-color: yellow;
 }
 
+#rolarDado {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+}
+
+#resultadoDado {
+    text-align: center;
+}
+
 /* Estilo do modal */
 .modal {
     display: none;
@@ -286,6 +305,7 @@ main {
     justify-content: center;
     align-items: center;
     text-align: center;
+    z-index: 1;
 }
 
 #telaInicial h2 {
