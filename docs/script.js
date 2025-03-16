@@ -1,11 +1,24 @@
 const totalCasas = 36;
-const jogadores = [
-    { nome: "Jogador 1", cor: "red", posicao: 0 },
-    { nome: "Jogador 2", cor: "blue", posicao: 0 },
-    { nome: "Jogador 3", cor: "green", posicao: 0 },
-    { nome: "Jogador 4", cor: "yellow", posicao: 0 }
-];
+let jogadores = [];
 let jogadorAtual = 0;
+
+document.getElementById("iniciarJogo").addEventListener("click",function(){
+
+//obtem o n de jogadores
+    const numJogadores = parseInt(document.getElementById("numJogadores").value);
+
+//define as cores dos jogadores com base no número escolhido
+
+const cores = ["red","blue","green","yellow"];
+jogadores = [];
+
+for (let i =0; i<numJogadores; i++){
+    jogadores.push({ nome: `Jogador ${i + 1}`, cor: cores[i], posicao: 0 });
+};
+//move Os Jogadores para o inicio do Tabuleiro
+atualizarJogadores()
+});
+
 // Perguntas
 const perguntas = {
     1: {
