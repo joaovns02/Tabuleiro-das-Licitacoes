@@ -1,8 +1,11 @@
+//variáveis Globais
 const totalCasas = 36;
 const casasDePergunta = [2, 5, 8, 12, 15, 18, 22, 25, 30, 34];
 let jogadores = [];
 let jogadorAtual = 0;
 
+
+//iniciando o jogo
 document.getElementById("iniciarJogo").addEventListener("click",function(){
 
 //obtem o n de jogadores
@@ -15,8 +18,9 @@ jogadores = [];
 
 for (let i =0; i<numJogadores; i++){
     jogadores.push({ nome: `Jogador ${i + 1}`, cor: cores[i], posicao: 0 });
+    const jogadorElemento = document.getElementById(`jogador${i+1}`);
+    jogadorElemento.style.display = "block"; //Torna os elementos jogadores visiveis comforme o n de jogadores
 };
-//move Os Jogadores para o inicio do Tabuleiro
 atualizarJogadores()
 });
 
@@ -43,6 +47,10 @@ const perguntas = [
         correta: 2
     }
 ];
+//estilização automática das casas de perguntas
+casasDePergunta.forEach(function(item){
+ document.getElementById("casa"+(item+1)).style.backgroundColor="yellow";
+});
 
 // Atualiza a posição do jogador
 function atualizarJogadores() {
