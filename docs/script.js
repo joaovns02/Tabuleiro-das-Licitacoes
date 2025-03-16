@@ -1,4 +1,5 @@
 const totalCasas = 36;
+const casasDePergunta = [2, 5, 8, 12, 15, 18, 22, 25, 30, 34];
 let jogadores = [];
 let jogadorAtual = 0;
 
@@ -20,28 +21,28 @@ atualizarJogadores()
 });
 
 // Perguntas
-const perguntas = {
-    1: {
+const perguntas = [
+    {
         texto: "Qual é a capital do Brasil?",
         alternativas: ["São Paulo", "Brasília", "Rio de Janeiro", "Salvador"],
         correta: 1 // Índice da resposta correta
     },
-    3: {
+    {
         texto: "Quanto é 5 + 3?",
         alternativas: ["6", "7", "8", "9"],
         correta: 2
     },
-    5: {
+    {
         texto: "Quem escreveu 'Dom Casmurro'?",
         alternativas: ["Machado de Assis", "José de Alencar", "Carlos Drummond", "Graciliano Ramos"],
         correta: 0
     },
-    7: {
+    {
         texto: "Qual é o maior planeta do sistema solar?",
         alternativas: ["Terra", "Marte", "Júpiter", "Saturno"],
         correta: 2
     }
-};
+];
 
 // Atualiza a posição do jogador
 function atualizarJogadores() {
@@ -68,23 +69,25 @@ document.getElementById("rolarDado").addEventListener("click", function() {
 
 
     // Verifica se parou em uma casa de pergunta
-    if (perguntas[jogadores[jogadorAtual].posicao+1]) {
-        exibirPergunta(jogadores[jogadorAtual].posicao+1);
+    if (casasDePergunta.includes(jogadores[jogadorAtual].posicao)) {
+        exibirPergunta();
     } else {
         // Alterna para o próximo jogador
         jogadorAtual = (jogadorAtual + 1) % jogadores.length;
     }
 });
 
-function exibirPergunta(casa) {
-    const pergunta = perguntas[casa];
-    document.getElementById("perguntaTexto").innerText = pergunta.texto;
-    const opcoesResposta = document.getElementById("opcoesResposta");
-    opcoesResposta.innerHTML = ""; // Limpa as opções anteriores
+function exibirPergunta() {
+    const indiceAleatorio = Math.floor(Math.random()* perguntas.length);
+    const pergunta = perguntas[indiceAleatorio];
 
+    document.getElementById("perguntaTexto").innerHTML = pergunta.texto;
+
+    const opcoesResposta = document.getElementById("opcoesResposta");
+    opcoesResposta. innerHTML = ""; //limpar as opcoes anteriores
     pergunta.alternativas.forEach((opcao, index) => {
         const botao = document.createElement("button");
-        botao.innerText = opcao;
+        botao.innerHTML = opcao;
         botao.onclick = () => verificarResposta(index, pergunta.correta);
         opcoesResposta.appendChild(botao);
     });
