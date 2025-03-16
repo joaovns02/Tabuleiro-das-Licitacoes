@@ -1,4 +1,14 @@
-* {}
+@font-face {
+    font-family: 'GeoForm';
+    src: url("src/fonts/Geoform-Bold.otf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'GeoForm', sans-serif;
+}
 
 h1 {
     text-align: center;
