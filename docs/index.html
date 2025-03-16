@@ -65,17 +65,21 @@
             <div class="jogador" id="jogador3"></div>
             <div class="jogador" id="jogador4"></div>
         </div>
-        <button id="rolarDado">Rolar Dado</button>
-        <p id="resultadoDado"></p>
+        <button id="rolarDado" class="bt">Rolar Dado</button>
         <!-- Modal para perguntas -->
         <div id="modalPergunta" class="modal">
-            <div class="modal-content">
+            <div class="modalContent">
                 <p id="perguntaTexto"></p>
                 <div id="opcoesResposta">
                 </div>
-                <button id="fecharModal" style="display: none;">Fechar</button>
             </div>
         </div>
+          <!-- Modal  de Dado -->
+            <div id="modalDado" class="modal">
+                <div class="modalContent" id="modalDadoContainer">
+                    <p id="resultadoDado"></p>
+                    <button id="fecharModalDado" class="bt">ok</button>
+                </div>
         <script src="script.js"></script>
     </main>
 </body>

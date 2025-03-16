@@ -65,8 +65,36 @@ function atualizarJogadores() {
 document.getElementById("rolarDado").addEventListener("click", function() {
     let dado = Math.floor(Math.random() * 6) + 1;  
     document.getElementById("resultadoDado").innerText = `${jogadores[jogadorAtual].nome} rolou: ${dado}`;
-//mov o Jogador Atual
+    const modalDado = document.getElementById("modalDado");
+    const modalDadoContainer = document.getElementById("modalDadoContainer");
+    modalDado.style.display = "block"; //Torna o Modal Visivel
+    //criando objeto video
+    const vDado = document.createElement("video");
+    vDado.width = 200;
+    vDado.className = "vdado";
+    vDado.src = "src/img/dados/Dado"+dado+".mp4";
+    vDado.autoplay = true;
+    vDado.controls = false;
+    modalDadoContainer.insertBefore(vDado, modalDadoContainer.firstChild);
+    //Desabilitando o botão de rolar o dado
+    document.getElementById("rolarDado").disabled = true;
+
+    //mov o Jogador Atual
     jogadores[jogadorAtual].posicao += dado;
+     // fecha o modal everifica se está na cas de perguntas 
+     document.getElementById("fecharModalDado").addEventListener("click", function() {
+        modalDado.style.display = "none";
+        vDado.remove();
+         // Verifica se parou em uma casa de pergunta
+    if (casasDePergunta.includes(jogadores[jogadorAtual].posicao)) {
+        exibirPergunta();
+    } else {
+        // Alterna para o próximo jogador
+        jogadorAtual = (jogadorAtual + 1) % jogadores.length;
+        document.getElementById("rolarDado").disabled = false;
+    }
+    });
+    // Verifica se o jogador venceu
     if (jogadores[jogadorAtual].posicao >= totalCasas) {
         jogadores[jogadorAtual].posicao = totalCasas;
         alert(`${jogadores[jogadorAtual].nome} venceu!`);
@@ -75,14 +103,6 @@ document.getElementById("rolarDado").addEventListener("click", function() {
 
     atualizarJogadores();
 
-
-    // Verifica se parou em uma casa de pergunta
-    if (casasDePergunta.includes(jogadores[jogadorAtual].posicao)) {
-        exibirPergunta();
-    } else {
-        // Alterna para o próximo jogador
-        jogadorAtual = (jogadorAtual + 1) % jogadores.length;
-    }
 });
 
 function exibirPergunta() {
@@ -95,14 +115,13 @@ function exibirPergunta() {
     opcoesResposta. innerHTML = ""; //limpar as opcoes anteriores
     pergunta.alternativas.forEach((opcao, index) => {
         const botao = document.createElement("button");
+        botao.className = "bt";
         botao.innerHTML = opcao;
         botao.onclick = () => verificarResposta(index, pergunta.correta);
         opcoesResposta.appendChild(botao);
     });
 
-    document.getElementById("modalPergunta").style.display = "block";//Torna o Modal Visivel
-    document.getElementById("rolarDado").disabled = true; //Disabilita o Botão de Rolar Dados
-    
+    document.getElementById("modalPergunta").style.display = "block";//Torna o Modal Visivel 
 }
 
 function verificarResposta(escolhida, correta) {
