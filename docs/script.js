@@ -1,10 +1,24 @@
 //variáveis Globais
-const totalCasas = 36;
+const totalCasas = 117;
 const casasDePergunta = [2, 5, 8, 12, 15, 18, 22, 25, 30, 34];
 let jogadores = [];
 let jogadorAtual = 0;
 let vDado = null;
 
+//criando as casas do tabuleiro
+criarCasas();
+ //funcção para criar as casas	
+function criarCasas() {
+    const tabuleiro = document.getElementById("tabuleiro");
+
+    for (let i = 1; i <= totalCasas; i++) {
+        const casa = document.createElement("div");
+        casa.classList.add("casa");
+        casa.id = `casa${i}`;
+        casa.innerText = i; // Exibe o número da casa (opcional)
+        tabuleiro.appendChild(casa);
+    };
+};
 
 //iniciando o jogo
 document.getElementById("iniciarJogo").addEventListener("click",function(){
