@@ -3,6 +3,7 @@ const totalCasas = 36;
 const casasDePergunta = [2, 5, 8, 12, 15, 18, 22, 25, 30, 34];
 let jogadores = [];
 let jogadorAtual = 0;
+let vDado = null;
 
 
 //iniciando o jogo
@@ -22,6 +23,7 @@ for (let i =0; i<numJogadores; i++){
     jogadorElemento.style.display = "block"; //Torna os elementos jogadores visiveis comforme o n de jogadores
 };
 atualizarJogadores()
+document.getElementById("telaInicial").style.display = "none"; // Esconde a tela de espera
 });
 
 // Perguntas
@@ -53,6 +55,8 @@ casasDePergunta.forEach(function(item){
 });
 
 // Atualiza a posição do jogador
+
+
 function atualizarJogadores() {
     jogadores.forEach((jogador, index) => {
         const peca = document.getElementById(`jogador${index + 1}`);
@@ -61,49 +65,15 @@ function atualizarJogadores() {
         peca.style.left = (casa.offsetLeft +25)+ "px";
     });
 }
-// Rola o dado e move o jogador
-document.getElementById("rolarDado").addEventListener("click", function() {
-    let dado = Math.floor(Math.random() * 6) + 1;  
-    document.getElementById("resultadoDado").innerText = `${jogadores[jogadorAtual].nome} rolou: ${dado}`;
-    const modalDado = document.getElementById("modalDado");
-    const modalDadoContainer = document.getElementById("modalDadoContainer");
-    modalDado.style.display = "block"; //Torna o Modal Visivel
-    //criando objeto video
-    const vDado = document.createElement("video");
-    vDado.width = 200;
-    vDado.className = "vdado";
-    vDado.src = "src/img/dados/Dado"+dado+".mp4";
-    vDado.autoplay = true;
-    vDado.controls = false;
-    modalDadoContainer.insertBefore(vDado, modalDadoContainer.firstChild);
-    //Desabilitando o botão de rolar o dado
-    document.getElementById("rolarDado").disabled = true;
 
-    //mov o Jogador Atual
-    jogadores[jogadorAtual].posicao += dado;
-     // fecha o modal everifica se está na cas de perguntas 
-     document.getElementById("fecharModalDado").addEventListener("click", function() {
-        modalDado.style.display = "none";
-        vDado.remove();
-         // Verifica se parou em uma casa de pergunta
-    if (casasDePergunta.includes(jogadores[jogadorAtual].posicao)) {
-        exibirPergunta();
-    } else {
-        // Alterna para o próximo jogador
-        jogadorAtual = (jogadorAtual + 1) % jogadores.length;
-        document.getElementById("rolarDado").disabled = false;
-    }
-    });
-    // Verifica se o jogador venceu
-    if (jogadores[jogadorAtual].posicao >= totalCasas) {
-        jogadores[jogadorAtual].posicao = totalCasas;
-        alert(`${jogadores[jogadorAtual].nome} venceu!`);
-        return;
-    }
+//Muda para o Próximo Jogador
 
-    atualizarJogadores();
 
-});
+function proximoJogador() {
+    jogadorAtual = (jogadorAtual + 1) % jogadores.length;
+    document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
+};
+
 
 function exibirPergunta() {
     const indiceAleatorio = Math.floor(Math.random()* perguntas.length);
@@ -122,7 +92,9 @@ function exibirPergunta() {
     });
 
     document.getElementById("modalPergunta").style.display = "block";//Torna o Modal Visivel 
-}
+};
+
+// Verifica as respostas
 
 function verificarResposta(escolhida, correta) {
     if (escolhida === correta) {
@@ -133,17 +105,60 @@ function verificarResposta(escolhida, correta) {
         jogadores[jogadorAtual].posicao = Math.max(0, jogadores[jogadorAtual].posicao - 1);
         atualizarJogadores();
         document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
-    }
+    };
 
     document.getElementById("modalPergunta").style.display = "none";
 
     // Alterna para o próximo jogador
-    jogadorAtual = (jogadorAtual + 1) % jogadores.length;
-}
-// Inicializa o jogador na posição inicial
-atualizarJogadores();
+    proximoJogador();
+};
 
-//tela inicial 
-document.getElementById("iniciarJogo").addEventListener("click", function() {
-    document.getElementById("telaInicial").style.display = "none"; // Esconde a tela de espera
+// Rola o dado e move o jogador
+
+
+document.getElementById("rolarDado").addEventListener("click", function() {
+    let dado = Math.floor(Math.random() * 6) + 1;  
+    document.getElementById("resultadoDado").innerText = `${jogadores[jogadorAtual].nome} rolou: ${dado}`;
+    const modalDado = document.getElementById("modalDado");
+    const modalDadoContainer = document.getElementById("modalDadoContainer");
+    modalDado.style.display = "block"; //Torna o Modal Visivel
+    //criando objeto video
+    vDado = document.createElement("video");
+    vDado.width = 200;
+    vDado.className = "vdado";
+    vDado.src = "src/img/dados/Dado"+dado+".mp4";
+    vDado.autoplay = true;
+    vDado.controls = false;
+    modalDadoContainer.insertBefore(vDado, modalDadoContainer.firstChild);
+    //Desabilitando o botão de rolar o dado
+    document.getElementById("rolarDado").disabled = true;
+
+    //mov o Jogador Atual
+    jogadores[jogadorAtual].posicao += dado;
+
+    // Verifica se o jogador venceu
+    if (jogadores[jogadorAtual].posicao >= totalCasas) {
+        jogadores[jogadorAtual].posicao = totalCasas;
+        alert(`${jogadores[jogadorAtual].nome} venceu!`);
+        return;
+    }
+
+    atualizarJogadores();
+
+});
+
+// fecha o modal
+
+document.getElementById("fecharModalDado").addEventListener("click", function() {
+    modalDado.style.display = "none";
+    if (vDado) vDado.remove();
+
+     // Verifica se parou em uma casa de pergunta
+
+if (casasDePergunta.includes(jogadores[jogadorAtual].posicao)) {
+    exibirPergunta();
+} else {
+    // Alterna para o próximo jogador
+    proximoJogador();
+}
 });
