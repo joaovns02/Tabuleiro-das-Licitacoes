@@ -6,6 +6,7 @@ let jogadorAtual = 0;
 let vDado = null;
 
 //criando as casas do tabuleiro
+criarCasas();
  //funcção para criar as casas	
 function criarCasas() {
     const tabuleiro = document.getElementById("tabuleiro");
@@ -21,7 +22,7 @@ function criarCasas() {
 
 //iniciando o jogo
 document.getElementById("iniciarJogo").addEventListener("click",function(){
-    criarCasas();
+
 //obtem o n de jogadores
     const numJogadores = parseInt(document.getElementById("numJogadores").value);
 
