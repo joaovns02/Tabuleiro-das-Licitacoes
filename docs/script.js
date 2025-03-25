@@ -1,44 +1,10 @@
 //variáveis Globais
 const totalCasas = 117;
-const casasDePergunta = [2, 5, 8, 12, 15, 18, 22, 25, 30, 34];
+const casasDePergunta = [2, 5, 8, 12, 15, 18, 22, 25, 30, 34,78, 102, 105, 41,46,50,58,65,72,85,96,112];
 let jogadores = [];
 let jogadorAtual = 0;
 let vDado = null;
 
-//criando as casas do tabuleiro
-criarCasas();
- //funcção para criar as casas	
-function criarCasas() {
-    const tabuleiro = document.getElementById("tabuleiro");
-
-    for (let i = 1; i <= totalCasas; i++) {
-        const casa = document.createElement("div");
-        casa.classList.add("casa");
-        casa.id = `casa${i}`;
-        casa.innerText = i; // Exibe o número da casa (opcional)
-        tabuleiro.appendChild(casa);
-    };
-};
-
-//iniciando o jogo
-document.getElementById("iniciarJogo").addEventListener("click",function(){
-
-//obtem o n de jogadores
-    const numJogadores = parseInt(document.getElementById("numJogadores").value);
-
-//define as cores dos jogadores com base no número escolhido
-
-const cores = ["red","blue","green","yellow"];
-jogadores = [];
-
-for (let i =0; i<numJogadores; i++){
-    jogadores.push({ nome: `Jogador ${i + 1}`, cor: cores[i], posicao: 0 });
-    const jogadorElemento = document.getElementById(`jogador${i+1}`);
-    jogadorElemento.style.display = "block"; //Torna os elementos jogadores visiveis comforme o n de jogadores
-};
-atualizarJogadores()
-document.getElementById("telaInicial").style.display = "none"; // Esconde a tela de espera
-});
 
 // Perguntas
 const perguntas = [
@@ -63,9 +29,54 @@ const perguntas = [
         correta: 2
     }
 ];
+//criando as casas do tabuleiro
+criarCasas();
+ //funcção para criar as casas	
+function criarCasas() {
+    const tabuleiro = document.getElementById("tabuleiro");
+
+    for (let i = 1; i <= totalCasas; i++) {
+        const casa = document.createElement("div");
+        if(i==1){
+            casa.classList.add("casa","casaInicio");
+            casa.innerText = "Inicio";
+        }else if(i==totalCasas){
+            casa.classList.add("casa","casaFim");
+            casa.innerText = "Fim";
+        }else{
+            casa.innerText = i-1; // Exibe o número da casa
+            casa.classList.add("casa");
+        }
+        
+        casa.id = `casa${i}`;
+        tabuleiro.appendChild(casa);
+    };
+};
+
 //estilização automática das casas de perguntas
 casasDePergunta.forEach(function(item){
- document.getElementById("casa"+(item+1)).style.backgroundColor="yellow";
+    document.getElementById("casa"+(item+1)).classList.add("casaPergunta");
+   });
+
+
+//iniciando o jogo
+document.getElementById("iniciarJogo").addEventListener("click",function(){
+
+//obtem o n de jogadores
+    const numJogadores = parseInt(document.getElementById("numJogadores").value);
+
+//define as cores dos jogadores com base no número escolhido
+
+const cores = ["red","blue","green","yellow"];
+jogadores = [];
+
+for (let i =0; i<numJogadores; i++){
+    jogadores.push({ nome: `Jogador ${i + 1}`, cor: cores[i], posicao: 0 });
+    const jogadorElemento = document.getElementById(`jogador${i+1}`);
+    jogadorElemento.style.display = "block"; //Torna os elementos jogadores visiveis comforme o n de jogadores
+};
+atualizarJogadores()
+document.getElementById("telaInicial").style.display = "none"; // Esconde a tela de espera
 });
 
 // Atualiza a posição do jogador
