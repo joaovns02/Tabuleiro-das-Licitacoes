@@ -67,11 +67,12 @@ main {
 
 .casa:hover {
     background-color: #bbb;
-    transform: scale(1.1);
+    transform: scale(1.5);
+    z-index: 1;
 }
 
 /* Organização das casas nas bordas */
-/* Define o caminho único tipo labirinto */
+/* #region Define o caminho único tipo labirinto */
 .casa:nth-child(1) {
 
     grid-column: 1 / span 2;
@@ -659,6 +660,7 @@ main {
     grid-row: 14 / span 2;
 }
 
+/* #endregion */
 /*Seletor de Jogadores*/
 #numJogadores {
     font-size: 18px;
@@ -667,11 +669,10 @@ main {
     border-radius: 10px;
 }
 
-/* Jogadores*/
+/*  #region Jogadores*/
 .jogador {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+    width: 50px;
+    height: 50px;
     position: absolute;
     transform: translate(-50%, -50%);
     display: none;
@@ -680,24 +681,105 @@ main {
 
 #jogador1 {
     margin-top: 4px;
-    background-color: red;
     margin-top: 9px;
+    background-image: url("src/img/jogadores/jogador1.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#jogador1::before {
+    content: "P1";
+    position: absolute;
+    top: -14px;
+    /* distância acima da bola */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-shadow:
+        -1px -1px 0 red,
+        1px -1px 0 red,
+        -1px 1px 0 red,
+        1px 1px 0 red;
 }
 
 #jogador2 {
-    background-color: BLUE;
+    background-image: url("src/img/jogadores/jogador2.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     margin-top: 6px;
 }
 
+#jogador2::before {
+    content: "P2";
+    position: absolute;
+    top: -14px;
+    /* distância acima da bola */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-shadow:
+        -1px -1px 0 blue,
+        1px -1px 0 blue,
+        -1px 1px 0 blue,
+        1px 1px 0 blue;
+}
+
 #jogador3 {
-    background-color: green;
+    background-image: url("src/img/jogadores/jogador3.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     margin-top: 3px;
 }
 
-#jogador4 {
-    background-color: yellow;
+#jogador3::before {
+    content: "P3";
+    position: absolute;
+    top: -14px;
+    /* distância acima da bola */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+
+    text-shadow: -1px -1px 0 green,
+        1px -1px 0 green,
+        -1px 1px 0 green,
+        1px 1px 0 green;
 }
 
+#jogador4 {
+    background-image: url("src/img/jogadores/jogador4.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#jogador4::before {
+    content: "P4";
+    position: absolute;
+    top: -14px;
+    /* distância acima da bola */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    text-shadow:
+        -1px -1px 0 yellow,
+        1px -1px 0 yellow,
+        -1px 1px 0 yellow,
+        1px 1px 0 yellow
+}
+
+/* #endregion */
 
 .pergunta {
     background-color: yellow;
@@ -719,7 +801,7 @@ main {
 }
 
 .bt:hover {
-    background-color: #02121d;
+    background-color: #0b4266;
 }
 
 #resultadoDado {

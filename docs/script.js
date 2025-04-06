@@ -69,7 +69,6 @@ document.getElementById("iniciarJogo").addEventListener("click",function(){
 
 const cores = ["red","blue","green","yellow"];
 jogadores = [];
-
 for (let i =0; i<numJogadores; i++){
     jogadores.push({ nome: `Jogador ${i + 1}`, cor: cores[i], posicao: 0 });
     const jogadorElemento = document.getElementById(`jogador${i+1}`);
@@ -99,7 +98,7 @@ function proximoJogador() {
     document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
 };
 
-
+//exibe a pergunta
 function exibirPergunta() {
     const indiceAleatorio = Math.floor(Math.random()* perguntas.length);
     const pergunta = perguntas[indiceAleatorio];
@@ -138,6 +137,15 @@ function verificarResposta(escolhida, correta) {
     proximoJogador();
 };
 
+
+//verifica se o jogador venceu
+function verificarVitoria() {
+    if (jogadores[jogadorAtual].posicao >= totalCasas) {
+        jogadores[jogadorAtual].posicao = totalCasas;
+        alert(`${jogadores[jogadorAtual].nome} venceu!`);
+        return;
+    }
+}
 // Rola o dado e move o jogador
 
 
@@ -160,16 +168,6 @@ document.getElementById("rolarDado").addEventListener("click", function() {
 
     //mov o Jogador Atual
     jogadores[jogadorAtual].posicao += dado;
-
-    // Verifica se o jogador venceu
-    if (jogadores[jogadorAtual].posicao >= totalCasas) {
-        jogadores[jogadorAtual].posicao = totalCasas;
-        alert(`${jogadores[jogadorAtual].nome} venceu!`);
-        return;
-    }
-
-    atualizarJogadores();
-
 });
 
 // fecha o modal
@@ -177,6 +175,11 @@ document.getElementById("rolarDado").addEventListener("click", function() {
 document.getElementById("fecharModalDado").addEventListener("click", function() {
     modalDado.style.display = "none";
     if (vDado) vDado.remove();
+     // Verifica se o jogador venceu
+     verificarVitoria();
+     //atualiza a posição do jogador
+     atualizarJogadores();
+ 
 
      // Verifica se parou em uma casa de pergunta
 
