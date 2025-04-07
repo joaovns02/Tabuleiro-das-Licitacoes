@@ -37,9 +37,20 @@ main {
     background-color: #f0f0f0;
     width: 100%;
     height: 100%;
-    font-size: clamp(10px, 2vw, 20px);
+    font-size: clamp(10px, 2vw, 10px);
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
     transition: background 0.3s ease-in-out;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.casa:hover {
+    background-color: #bbb;
+    transform: scale(1.5);
+    z-index: 1;
 }
 
 /* Casas especiais (começo e fim) */
@@ -65,9 +76,31 @@ main {
     /* Laranja */
 }
 
-.casa:hover {
-    background-color: #bbb;
-    transform: scale(1.5);
+.casaEventoPar {
+    background-color: #ff3300;
+    color: white;
+    border: 2px solid #ff3300;
+}
+
+.casaEventoImpar {
+    background-color: #40c540;
+    color: white;
+    border: 2px solid #40c540;
+}
+
+.casa.casaEventoPar:hover {
+    background-color: #ff3300;
+    transform: scale(2);
+    font-size: 8px;
+    width: 150%;
+    z-index: 1;
+}
+
+.casa.casaEventoImpar:hover {
+    background-color: #40c540;
+    transform: scale(1.8);
+    font-size: 8px;
+    width: 150%;
     z-index: 1;
 }
 
@@ -836,6 +869,22 @@ main {
 
 #modalDado video {
     width: 400px;
+}
+
+/* Modal Evento*/
+.modelEvento {
+
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border: 1px solid rgb(206, 205, 205);
+    width: 500px;
+    border-radius: 5px;
+    z-index: 2;
 }
 
 /* Tela inicial*/
