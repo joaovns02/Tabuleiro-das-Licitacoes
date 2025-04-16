@@ -170,12 +170,10 @@ casasDeEvento.forEach(function(item){
     let idCasa = document.getElementById("casa"+(item+1));
     if((item)%2==0){
     idCasa.classList.add("casaEventoPar");
-    idCasa.innerText = item+" "+eventosPar[indicePar].texto;
     indicePar++;
     }
     else{
     idCasa.classList.add("casaEventoImpar");
-    idCasa.innerText = item+" "+eventosImpar[indiceImpar].texto;
     indiceImpar++;
     }
    });

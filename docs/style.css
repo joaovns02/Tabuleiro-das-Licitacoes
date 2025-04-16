@@ -71,21 +71,31 @@ main {
 /* Destacar casas de perguntas */
 .casaPergunta {
     background-color: #ffeb3b;
-    /* Amarelo */
     border: 2px solid #f57c00;
-    /* Laranja */
+    background-image: url("src/img/Casas/pergunta.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .casaEventoPar {
     background-color: #ff3300;
     color: white;
     border: 2px solid #ff3300;
+    background-image: url("src/img/Casas/x.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .casaEventoImpar {
     background-color: #40c540;
     color: white;
     border: 2px solid #40c540;
+    background-image: url("src/img/Casas/trevo.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .casa.casaEventoPar:hover {
