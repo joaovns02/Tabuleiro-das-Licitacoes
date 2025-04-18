@@ -6,134 +6,30 @@ let jogadores = [];
 let jogadorAtual = 0;
 let vDado = null;
 
-
-// Perguntas
-const perguntas = [
-    {
-        texto: "Qual é a capital do Brasil?",
-        alternativas: ["São Paulo", "Brasília", "Rio de Janeiro", "Salvador"],
-        correta: 1 // Índice da resposta correta
-    },
-    {
-        texto: "Quanto é 5 + 3?",
-        alternativas: ["6", "7", "8", "9"],
-        correta: 2
-    },
-    {
-        texto: "Quem escreveu 'Dom Casmurro'?",
-        alternativas: ["Machado de Assis", "José de Alencar", "Carlos Drummond", "Graciliano Ramos"],
-        correta: 0
-    },
-    {
-        texto: "Qual é o maior planeta do sistema solar?",
-        alternativas: ["Terra", "Marte", "Júpiter", "Saturno"],
-        correta: 2
-    }
-];
-// eventos
-// Eventos Positivos
-const eventosImpar = [
-    {
-        texto: "Sua proposta foi a melhor classificada! Avance 2 casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao += 2;
-        }
-    },
-    {
-        texto: "Você apresentou toda a documentação corretamente e no prazo. Receba um bônus e jogue novamente",
-        acao: function(){
-            jogadorAtual =-1;
-        }
-    },
-    {
-        texto: "Você antecipou as exigências do edital e se preparou bem. Avance 5 Casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao += 5;
-        }
-    },
-    {
-        texto: "Você participou de um curso sobre licitação e ficou expert no assunto. Avance 7 casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao += 7;
-        }
-    },
-    {
-        texto: "Você venceu a licitação e assinou o contrato com sucesso! Avance 2 casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao += 2;
-        }
-    },
-    {
-        texto: "O órgão público elogiou sua organização na sessão pública. Jogue novamente!",
-        acao: function(){
-            ogadorAtual =-1;
-        }
-    },
-];
-// Eventos Negativos
-const eventosPar = [
-    {
-        texto: "Seu recurso foi indeferido pelo órgão público. Você retrocedeu 3 casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao -= 3;
-        }
-    },
-    {
-        texto: "Você apresentou certidão vencida. Fique sem Jogar na Proxima Rodada!",
-        acao: function(jogador) {
-            jogadores[jogadorAtual].pularRodada = true;
-        }
-    },
-    {
-        texto: "Esqueceu de incluir um documento obrigatório no envelope. Volte 5 Casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao -= 5;
-        }
-    },
-    {
-        texto: "Erro no valor total da planilha de custos. Volte 10 casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao -= 10;
-        }
-    },
-    {
-        texto: "Sua proposta foi desclassificada por erro de preenchimento. Volte 3 casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao -= 3;
-        }
-    },
-    {
-        texto: "Proposta enviada fora do horário permitido. Volte 1 Casa!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao -= 1;
-        }
-    },
-    {
-        texto: "Edital tinha cláusula específica que você não atendeu. Fique sem Jogar na  Próxima Rodada!",
-        acao: function(){
-            jogadores[jogadorAtual].pularRodada = true;
-        }
-    },
-    {
-        texto: "Sua proposta foi considerada inexequível. Volte 2 casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao -= 2;
-        }
-    },
-    {
-        texto: "Você perdeu o prazo de entrega dos documentos. Volte 5 casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao -= 5;
-        }
-    },
-    {
-        texto: "Você deixou de responder uma diligência dentro do prazo. Volte 4 casas!",
-        acao: function(){
-            jogadores[jogadorAtual].posicao -= 4;
-        }
-    }
-];
-
+function mostrarConfete() {
+    const duration = 3 * 1000;
+    const end = Date.now() + duration;
+  
+    (function frame() {
+      confetti({
+        particleCount: 5,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 }
+      });
+  
+      confetti({
+        particleCount: 5,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 }
+      });
+  
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    })();
+  }
 //criando as casas do tabuleiro
 criarCasas();
  // #region função para criar as casas	
@@ -177,12 +73,6 @@ casasDeEvento.forEach(function(item){
     indiceImpar++;
     }
    });
-
-
-
-
-
-
 //iniciando o jogo
 document.getElementById("iniciarJogo").addEventListener("click",function(){
 
@@ -283,12 +173,20 @@ function verificarResposta(escolhida, correta) {
 
 //verifica se o jogador venceu
 function verificarVitoria() {
-    if (jogadores[jogadorAtual].posicao >= totalCasas) {
-        jogadores[jogadorAtual].posicao = totalCasas;
-        alert(`${jogadores[jogadorAtual].nome} venceu!`);
+    ultimaCasa= totalCasas-1;
+    if (jogadores[jogadorAtual].posicao >= ultimaCasa) {
+        jogadores[jogadorAtual].posicao = ultimaCasa;
+        document.getElementById("vitoriaMensagem").innerText = `${jogadores[jogadorAtual].nome} venceu o jogo!`;
+        document.getElementById("modalVitoria").style.display = "block";
+        document.getElementById("rolarDado").disabled = true;
+        mostrarConfete();
         return;
     }
 }
+//Reinicia O Jogo
+document.getElementById("reiniciarJogo").addEventListener("click", function() {
+    location.reload(); // Recarrega a página
+});
 // Rola o dado e move o jogador
 document.getElementById("rolarDado").addEventListener("click", function() {
     let dado = Math.floor(Math.random() * 6) + 1;  

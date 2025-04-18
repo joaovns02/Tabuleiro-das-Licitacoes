@@ -31,6 +31,7 @@ main {
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 
+/* #region Casas  */
 .casa {
     border: 1px solid #777777;
     border-radius: 8px;
@@ -50,7 +51,6 @@ main {
 .casa:hover {
     background-color: #bbb;
     transform: scale(1.5);
-    z-index: 1;
 }
 
 /* Casas especiais (começo e fim) */
@@ -103,7 +103,6 @@ main {
     transform: scale(2);
     font-size: 8px;
     width: 150%;
-    z-index: 1;
 }
 
 .casa.casaEventoImpar:hover {
@@ -111,9 +110,9 @@ main {
     transform: scale(1.8);
     font-size: 8px;
     width: 150%;
-    z-index: 1;
 }
 
+/* #endregion */
 /* Organização das casas nas bordas */
 /* #region Define o caminho único tipo labirinto */
 .casa:nth-child(1) {
@@ -704,6 +703,7 @@ main {
 }
 
 /* #endregion */
+/* #region Jogadores*/
 /*Seletor de Jogadores*/
 #numJogadores {
     font-size: 18px;
@@ -712,7 +712,6 @@ main {
     border-radius: 10px;
 }
 
-/*  #region Jogadores*/
 .jogador {
     width: 50px;
     height: 50px;
