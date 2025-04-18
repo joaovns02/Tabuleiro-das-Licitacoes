@@ -5,31 +5,7 @@ const casasDeEvento = [8,15,28,33,48,55,60,75,80,90,93,98,109];
 let jogadores = [];
 let jogadorAtual = 0;
 let vDado = null;
-
-function mostrarConfete() {
-    const duration = 3 * 1000;
-    const end = Date.now() + duration;
-  
-    (function frame() {
-      confetti({
-        particleCount: 5,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 }
-      });
-  
-      confetti({
-        particleCount: 5,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 }
-      });
-  
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
-      }
-    })();
-  }
+// #region Inicialização do Jogo
 //criando as casas do tabuleiro
 criarCasas();
  // #region função para criar as casas	
@@ -59,7 +35,8 @@ casasDePergunta.forEach(function(item){
     document.getElementById("casa"+(item+1)).classList.add("casaPergunta");
    });
 // #endregion
-// Estilização de casas de Evento
+//  #region Estilização de casas de Evento
+
 let indicePar = 0;
 let indiceImpar = 0;
 casasDeEvento.forEach(function(item){
@@ -73,6 +50,31 @@ casasDeEvento.forEach(function(item){
     indiceImpar++;
     }
    });
+// #endregion	
+function mostrarConfete() {
+    const duration = 3 * 1000;
+    const end = Date.now() + duration;
+  
+    (function frame() {
+      confetti({
+        particleCount: 5,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 }
+      });
+  
+      confetti({
+        particleCount: 5,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 }
+      });
+  
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    })();
+  }
 //iniciando o jogo
 document.getElementById("iniciarJogo").addEventListener("click",function(){
 
@@ -84,15 +86,14 @@ document.getElementById("iniciarJogo").addEventListener("click",function(){
 const cores = ["red","blue","green","yellow"];
 jogadores = [];
 for (let i =0; i<numJogadores; i++){
-    jogadores.push({ nome: `Jogador ${i + 1}`, cor: cores[i], posicao: 0,pularRodada: false });
+    jogadores.push({ nome: `Jogador ${i + 1}`, cor: cores[i], posicao: 0,pularRodada: false,qRespondidas: 0,qAcertadas: 0,pontuacao: 1000});
     const jogadorElemento = document.getElementById(`jogador${i+1}`);
     jogadorElemento.style.display = "block"; //Torna os elementos jogadores visiveis comforme o n de jogadores
 };
 atualizarJogadores()
 document.getElementById("telaInicial").style.display = "none"; // Esconde a tela de espera
 });
-
-
+// #endregion
 //Move O jogador
 function moverJogador(qtd) {
     jogadores[jogadorAtual].posicao += qtd;
@@ -118,6 +119,7 @@ function proximoJogador() {
     }
     document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
 };
+// #region Perguntas
 //exibe a pergunta
 function exibirPergunta() {
     const indiceAleatorio = Math.floor(Math.random()* perguntas.length);
@@ -137,6 +139,28 @@ function exibirPergunta() {
 
     document.getElementById("modalPergunta").style.display = "block";//Torna o Modal Visivel 
 };
+// Verifica as respostas
+function verificarResposta(escolhida, correta) {
+    jogadores[jogadorAtual].qRespondidas++;//Incrementa o número de perguntas respondidas
+
+    if (escolhida === correta) {
+        jogadores[jogadorAtual].qAcertadas++;
+        alert("Resposta correta! Você continua.");
+        document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
+    } else {
+
+        alert("Resposta errada! Você volta uma casa.");
+        jogadores[jogadorAtual].posicao = Math.max(0, jogadores[jogadorAtual].posicao - 1);
+        atualizarJogadores();
+        document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
+    };
+
+    document.getElementById("modalPergunta").style.display = "none";
+
+    // Alterna para o próximo jogador
+    proximoJogador();
+};
+// #endregion Perguntas
 //Exibe o Modal de Evento
 function ExibirEvento(evento) {
 setTimeout(() => {
@@ -151,26 +175,6 @@ document.getElementById("fecharEvento").onclick = function() {
 };
 }
 //Fecha o Modal de Evento
-// Verifica as respostas
-
-function verificarResposta(escolhida, correta) {
-    if (escolhida === correta) {
-        alert("Resposta correta! Você continua.");
-        document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
-    } else {
-        alert("Resposta errada! Você volta uma casa.");
-        jogadores[jogadorAtual].posicao = Math.max(0, jogadores[jogadorAtual].posicao - 1);
-        atualizarJogadores();
-        document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
-    };
-
-    document.getElementById("modalPergunta").style.display = "none";
-
-    // Alterna para o próximo jogador
-    proximoJogador();
-};
-
-
 //verifica se o jogador venceu
 function verificarVitoria() {
     ultimaCasa= totalCasas-1;
