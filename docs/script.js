@@ -96,8 +96,12 @@ document.getElementById("telaInicial").style.display = "none"; // Esconde a tela
 // #endregion
 //Move O jogador
 function moverJogador(qtd) {
-    jogadores[jogadorAtual].posicao += qtd;
-
+    let novaPosicao = jogadores[jogadorAtual].posicao + qtd;
+    if (novaPosicao >= totalCasas - 1) {
+        jogadores[jogadorAtual].posicao = totalCasas - 1;
+    } else {
+        jogadores[jogadorAtual].posicao = novaPosicao;
+    }
 }
 
 // Atualiza a posição do jogador
@@ -177,7 +181,7 @@ document.getElementById("fecharEvento").onclick = function() {
 //Fecha o Modal de Evento
 //verifica se o jogador venceu
 function verificarVitoria() {
-    ultimaCasa= totalCasas-1;
+    const ultimaCasa= totalCasas-1;
     if (jogadores[jogadorAtual].posicao >= ultimaCasa) {
         jogadores[jogadorAtual].posicao = ultimaCasa;
         document.getElementById("vitoriaMensagem").innerText = `${jogadores[jogadorAtual].nome} venceu o jogo!`;
@@ -209,7 +213,7 @@ document.getElementById("rolarDado").addEventListener("click", function() {
     //Desabilitando o botão de rolar o dado
     document.getElementById("rolarDado").disabled = true;
     //mov o Jogador Atual
-    moverJogador(dado);
+    moverJogador(110);
 });
 
 // fecha o modal Dado
