@@ -213,7 +213,7 @@ document.getElementById("rolarDado").addEventListener("click", function() {
     //Desabilitando o botão de rolar o dado
     document.getElementById("rolarDado").disabled = true;
     //mov o Jogador Atual
-    moverJogador(110);
+    moverJogador(dado);
 });
 
 // fecha o modal Dado
