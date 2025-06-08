@@ -703,6 +703,18 @@ main {
 }
 
 /* #endregion */
+/* #region Tabela de pontos*/
+/* Estilo da tabela de pontos */
+#pontosContainer {
+    grid-column: 1 / span 2;
+    grid-row: 3 / span 3;
+    background-color: #e4e9e0;
+    border: 1px solid #333030;
+    margin: 2px;
+    border-radius: 10px;
+}
+
+/* #endregion */
 /* #region Jogadores*/
 /*Seletor de Jogadores*/
 #numJogadores {

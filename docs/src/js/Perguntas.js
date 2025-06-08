@@ -1,5 +1,5 @@
 //  Perguntas
-const perguntas = [
+ const perguntas = [
     // #region Questões  Fáceis
 
     {
@@ -308,3 +308,6 @@ const perguntas = [
     }
     // #endregion
 ];
+export function getPerguntas(){
+    return perguntas;
+}
