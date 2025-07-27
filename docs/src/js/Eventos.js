@@ -1,7 +1,7 @@
 import { getJogadores, getJogadorAtual} from './config.js';
 let jogadores;
 let jogadorAtual;
-// Eventos Positivos
+// Eventos Positivos -=--
 const eventosImpar = [
     {
         texto: "Sua proposta foi a melhor classificada! Avance 2 casas!",
