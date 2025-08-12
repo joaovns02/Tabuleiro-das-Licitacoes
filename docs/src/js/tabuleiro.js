@@ -22,10 +22,10 @@ export function criarCasas() {
         tabuleiro.appendChild(casa);
     };
     // Criar uma div para contabilzar os pontos dos jogadores
-    const pontosContainer = document.createElement("div");
+    /*const pontosContainer = document.createElement("div");
     pontosContainer.id = "pontosContainer";
     pontosContainer.classList.add("pontosContainer");
-    tabuleiro.appendChild(pontosContainer);
+    tabuleiro.appendChild(pontosContainer);*/
 };
 // #region estilização automática das casas de perguntas
 
