@@ -1,6 +1,6 @@
-# Table Game
+# Tabuleiro das Licitações
 
-Bem-vindo ao **Table Game**, um jogo de tabuleiro interativo desenvolvido em HTML e JavaScript. Neste jogo, os jogadores competem em uma corrida emocionante, movendo-se pelo tabuleiro e respondendo a perguntas ao longo do caminho.
+Bem-vindo ao ***Tabuleiro das Licitações***, um jogo de tabuleiro interativo desenvolvido em HTML e JavaScript. Neste jogo, os jogadores competem em uma corrida emocionante, movendo-se pelo tabuleiro e respondendo a perguntas ao longo do caminho.
 
 ## Funcionalidades
 
