@@ -37,7 +37,7 @@ export function verificarCasaAtual() {
     };
 };
 // Verifica as respostas
-export function verificarResposta(escolhida, correta) {
+export function verificarResposta(escolhida, correta, dificuldade) {
     let jogadores = getJogadores();
     let jogadorAtual = getJogadorAtual();
     jogadores[jogadorAtual].qRespondidas++;//Incrementa o número de perguntas respondidas
@@ -45,12 +45,21 @@ export function verificarResposta(escolhida, correta) {
         jogadores[jogadorAtual].qAcertadas++;
         alert("Resposta correta! Você continua.");
         document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
+        //sistema de pontuação acertou pergunta  facil (1) 100 pontos, medio (2) 200 pontos, dificio (3) 300 pontos , errou perguntas  -50 pontos 
+        if(dificuldade==1){
+            jogadores[jogadorAtual].pontuacao += 100;
+        } else if(dificuldade==2){
+            jogadores[jogadorAtual].pontuacao += 200;
+        } else if(dificuldade===3){
+            jogadores[jogadorAtual].pontuacao += 300;
+        }
     } else {
 
         alert("Resposta errada! Você volta uma casa.");
         jogadores[jogadorAtual].posicao = Math.max(0, jogadores[jogadorAtual].posicao - 1);
         atualizarJogadores();
         document.getElementById("rolarDado").disabled = false; //Habilita o Botão de Rolar Dados
+        jogadores[jogadorAtual].pontuacao += -50;
     };
 
     document.getElementById("modalPergunta").style.display = "none";

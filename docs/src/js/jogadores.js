@@ -13,7 +13,7 @@ export function inicializarJogadores(){
             pularRodada: false,
             qRespondidas: 0,
             qAcertadas: 0,
-            pontuacao: 1000});
+            pontuacao: 0});
         const jogadorElemento = document.getElementById(`jogador${i+1}`);
         jogadorElemento.style.display = "block"; //Torna os elementos jogadores visiveis comforme o n de jogadores
     };
@@ -55,4 +55,4 @@ export function moverJogador(qtd) {
         jogadores[jogadorAtual].posicao = novaPosicao;
     }
 }
-
+//sistema de pontuação acertou pergunta  facil 100 pontos, medio 200 pontos, dificio 300 pontos , errou perguntas  -50 pontos 

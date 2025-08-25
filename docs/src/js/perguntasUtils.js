@@ -14,7 +14,7 @@ export function exibirPergunta() {
         const botao = document.createElement("button");
         botao.className = "bt";
         botao.innerHTML = opcao;
-        botao.onclick = () => verificarResposta(index, pergunta.correta);
+        botao.onclick = () => verificarResposta(index, pergunta.correta,pergunta.dificuldade);
         opcoesResposta.appendChild(botao);
     });
 
