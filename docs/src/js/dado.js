@@ -23,7 +23,7 @@ export function rolarDado() {
     //Desabilitando o botão de rolar o dado
     document.getElementById("rolarDado").disabled = true;
     //mov o Jogador Atual
-    moverJogador(dado);
+    moverJogador(102);
 };
 export function fecharModalDado() {
     modalDado.style.display = "none";

@@ -75,8 +75,13 @@ export function verificarVitoria() {
     if (jogadores[jogadorAtual].posicao >= ultimaCasa) {
         jogadores[jogadorAtual].posicao = ultimaCasa;
         document.getElementById("vitoriaMensagem").innerText = `${jogadores[jogadorAtual].nome} venceu o jogo!`;
+        let ranking = jogadores.slice().sort((a, b) => b.pontuacao - a.pontuacao);
+        let placarHTML= "<li>Placar Final por pontuação:</li>";
+        ranking.forEach((ranking, i) => {
+        placarHTML +=`<li>${i + 1}º ${ranking.nome} : ${ranking.pontuacao} pontos</li>`;
+        });
+        document.getElementById("placarFinal").innerHTML = placarHTML;
         document.getElementById("modalVitoria").style.display = "block";
-        document.getElementById("rolarDado").disabled = true;
         mostrarConfete();
         return;
     }

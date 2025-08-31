@@ -18,6 +18,12 @@ main {
     background-color: azure;
 }
 
+ul {
+    list-style-type: none;
+    margin: 0% auto;
+    padding: 10px;
+    align-items: center;
+}
 
 .tabuleiro {
     margin: auto;
